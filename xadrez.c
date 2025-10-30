@@ -108,7 +108,7 @@ void movimento_bispo(int direcao, int casas_restante, int contagem){
 }
 
 // Define as escolhas do usuário para a peça:
-void peca_bispo() {
+void peca_bispo() {                // Requisito: usar 'break'
     int direcao, casas;
     printf("Escolha a direção do movimento: \n");
     printf("-----------------------------\n");
@@ -257,21 +257,43 @@ int main() {
             peca_rainha();
             break;
         case 4:
-            // Movimenta o cavalo em L para baixo e para esquerda:
+            // Movimenta o cavalo em L:
             printf("-----------------------------\n");
             printf("Cavalo se move...\n");
-            for (int i = 0; i < 2; i++){
-                int passos = 0;
-                while (passos < 1){
-                    printf("Cima\n");
-                    cavalo++;
-                    printf("%s: %d\n", (cavalo ==1) ? "Casa movida" : "Casas movidas", cavalo);
-                    passos++;
+
+            // Variáveis para controlar os passos
+            int passos_verticais = 0;
+            int passos_horizontais = 0;
+            int total_passos = 3;
+
+            // Loop externo principal para controlar total de passos:
+            for (int i = 0; i < total_passos; i++) {
+                
+                // Loop aninhado:
+                for (int j = 0; j < 1; j++) {
+                    
+                    // Move para Cima:
+                    if (passos_verticais < 2) {
+                        printf("Cima\n");
+                        passos_verticais++;
+                        cavalo++;
+                        printf("%s: %d\n", (cavalo == 1) ? "Casa movida" : "Casas movidas", cavalo);
+                        continue; 
+                    }
+
+                    // Move para Direita:
+                    if (passos_horizontais < 1) {
+                        printf("Direita\n");
+                        passos_horizontais++;
+                        cavalo++;
+                        printf("%s: %d\n", (cavalo == 1) ? "Casa movida" : "Casas movidas", cavalo);
+                    }
+                }
+                // Sai do loop principal:
+                if (passos_verticais == 2 && passos_horizontais == 1) {
+                    break;
                 }
             }
-            printf("Direita\n");
-            cavalo++;
-            printf("%s: %d\n", (cavalo ==1) ? "Casa movida" : "Casas movidas", cavalo);
             break;
         case 0:
             printf("-----------------------------\n");
